@@ -1,0 +1,497 @@
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local ImageButton = Instance.new("ImageButton")
+local TextButton = Instance.new("TextButton")
+local close = Instance.new("TextButton")
+local speed = Instance.new("TextButton")
+local gravity = Instance.new("TextButton")
+local fly = Instance.new("TextButton")
+local clicktp = Instance.new("TextButton")
+local fling = Instance.new("TextButton")
+local noclip = Instance.new("TextButton")
+local fps = Instance.new("TextButton")
+local graphics = Instance.new("TextButton")
+local btools = Instance.new("TextButton")
+local open = Instance.new("TextButton")
+ 
+--Properties:
+ 
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ 
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.BackgroundTransparency = 1.000
+Frame.Position = UDim2.new(0.508326054, 0, 0.299689442, 0)
+Frame.Size = UDim2.new(0, 401, 0, 310)
+Frame.Active = true
+Frame.Draggable = true
+ 
+ImageButton.Parent = Frame
+ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageButton.Position = UDim2.new(0, 0, 0.0516129024, 0)
+ImageButton.Size = UDim2.new(0, 408, 0, 269)
+ImageButton.Image = "http://www.roblox.com/asset/?id=4908568640"
+ 
+TextButton.Parent = Frame
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.Position = UDim2.new(0, 0, 0.921933115, 0)
+TextButton.Size = UDim2.new(0, 408, 0, 21)
+TextButton.Font = Enum.Font.GothamBlack
+TextButton.Text = "Script Maked By. Musakka"
+TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.TextScaled = true
+TextButton.TextSize = 14.000
+TextButton.TextWrapped = true
+ 
+close.Name = "close"
+close.Parent = Frame
+close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+close.BorderSizePixel = 0
+close.Position = UDim2.new(0.940149605, 0, -0.0242115334, 0)
+close.Size = UDim2.new(0, 31, 0, 23)
+close.Font = Enum.Font.SourceSans
+close.Text = "X"
+close.TextColor3 = Color3.fromRGB(0, 0, 0)
+close.TextScaled = true
+close.TextSize = 14.000
+close.TextWrapped = true
+close.MouseButton1Down:connect(function()
+Frame.Visible = false
+open.Visible = true
+end)
+ 
+speed.Name = "speed"
+speed.Parent = Frame
+speed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+speed.BorderColor3 = Color3.fromRGB(255, 170, 255)
+speed.Position = UDim2.new(0.0249376558, 0, 0.100000001, 0)
+speed.Size = UDim2.new(0, 125, 0, 29)
+speed.Font = Enum.Font.SourceSans
+speed.Text = "SPEED[X]"
+speed.TextColor3 = Color3.fromRGB(0, 0, 0)
+speed.TextScaled = true
+speed.TextSize = 14.000
+speed.TextWrapped = true
+speed.MouseButton1Down:connect(function()
+	local walkspeedplayer = game:GetService("Players").LocalPlayer
+	local walkspeedmouse = walkspeedplayer:GetMouse()
+ 
+	local walkspeedenabled = false
+ 
+	function x_walkspeed(key)
+		if (key == "x") then
+			if walkspeedenabled == false then
+				_G.WS = 200;
+				local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid;
+				Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+				Humanoid.WalkSpeed = _G.WS;
+				end)
+				Humanoid.WalkSpeed = _G.WS;
+ 
+				walkspeedenabled = true
+			elseif walkspeedenabled == true then
+				_G.WS = 20;
+				local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid;
+				Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+				Humanoid.WalkSpeed = _G.WS;
+				end)
+				Humanoid.WalkSpeed = _G.WS;
+ 
+				walkspeedenabled = false
+			end
+		end
+	end
+ 
+	walkspeedmouse.KeyDown:connect(x_walkspeed)
+ 
+end)
+ 
+gravity.Name = "gravity"
+gravity.Parent = Frame
+gravity.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+gravity.BorderColor3 = Color3.fromRGB(255, 170, 255)
+gravity.Position = UDim2.new(0.351620942, 0, 0.100000001, 0)
+gravity.Size = UDim2.new(0, 125, 0, 29)
+gravity.Font = Enum.Font.SourceSans
+gravity.Text = "GRAVITY"
+gravity.TextColor3 = Color3.fromRGB(0, 0, 0)
+gravity.TextScaled = true
+gravity.TextSize = 14.000
+gravity.TextWrapped = true
+gravity.MouseButton1Down:connect(function()
+if Gravity == true then
+Gravity = false
+game.workspace.Gravity = 196.2
+else
+Gravity = true
+game.workspace.Gravity = 45
+end
+end)
+ 
+fly.Name = "fly"
+fly.Parent = Frame
+fly.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+fly.BorderColor3 = Color3.fromRGB(255, 170, 255)
+fly.Position = UDim2.new(0.69077307, 0, 0.100000001, 0)
+fly.Size = UDim2.new(0, 125, 0, 29)
+fly.Font = Enum.Font.SourceSans
+fly.Text = "FLY[Q]"
+fly.TextColor3 = Color3.fromRGB(0, 0, 0)
+fly.TextScaled = true
+fly.TextSize = 14.000
+fly.TextWrapped = true
+fly.MouseButton1Down:connect(function()
+	local Enabled = false
+	local Camera = game.Workspace.CurrentCamera
+	local Player = game:GetService("Players").LocalPlayer
+	local Input = game:GetService("UserInputService")
+	local Forward = false
+	local Back = false
+	local Left = false
+	local Right = false
+	local Up = false
+	local Down = false
+ 
+	local function SetPlayer()
+		for i,v in pairs(Player.Character:GetChildren()) do
+			pcall(function()
+				v.Anchored = not v.Anchored
+			end)
+		end
+	end
+ 
+	Input.InputBegan:Connect(function(Key,IsChat)
+		if IsChat then return end
+		if Key.KeyCode == Enum.KeyCode.Q then
+			Enabled = not Enabled
+			SetPlayer()
+		end
+		if Key.KeyCode == Enum.KeyCode.W then
+			Forward = true
+		end
+		if Key.KeyCode == Enum.KeyCode.S then
+			Back = true
+		end
+		if Key.KeyCode == Enum.KeyCode.A then
+			Left = true
+		end
+		if Key.KeyCode == Enum.KeyCode.D then
+			Right = true
+		end
+		if Key.KeyCode == Enum.KeyCode.Space then
+			Up = true
+		end
+		if Key.KeyCode == Enum.KeyCode.LeftControl then
+			Down = true
+		end
+	end)
+ 
+	Input.InputEnded:Connect(function(Key,IsChat)
+		if IsChat then return end
+		if Key.KeyCode == Enum.KeyCode.W then
+			Forward = false
+		end
+		if Key.KeyCode == Enum.KeyCode.S then
+			Back = false
+		end
+		if Key.KeyCode == Enum.KeyCode.A then
+			Left = false
+		end
+		if Key.KeyCode == Enum.KeyCode.D then
+			Right = false
+		end
+		if Key.KeyCode == Enum.KeyCode.Space then
+			Up = false
+		end
+		if Key.KeyCode == Enum.KeyCode.LeftControl then
+			Down = false
+		end
+	end)
+ 
+	while game:GetService("RunService").RenderStepped:Wait() do
+		if Enabled then
+			pcall(function()
+			if Forward then
+				Player.Character:TranslateBy(Camera.CFrame.lookVector*2)
+			end
+			if Back then
+				Player.Character:TranslateBy(-Camera.CFrame.lookVector*2)
+			end
+				if Left then
+					Player.Character:TranslateBy(-Camera.CFrame:vectorToWorldSpace(Vector3.new(1,0,0))*2)
+				end
+				if Right then
+					Player.Character:TranslateBy(Camera.CFrame:vectorToWorldSpace(Vector3.new(1,0,0))*2)
+				end
+				if Up then
+					Player.Character:TranslateBy(Camera.CFrame:vectorToWorldSpace(Vector3.new(0,1,0))*2)
+				end
+				if Down then
+					Player.Character:TranslateBy(-Camera.CFrame:vectorToWorldSpace(Vector3.new(0,1,0))*2)
+				end
+			end)
+		end
+	end
+end)
+ 
+clicktp.Name = "clicktp"
+clicktp.Parent = Frame
+clicktp.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+clicktp.BorderColor3 = Color3.fromRGB(255, 170, 255)
+clicktp.Position = UDim2.new(0.0249376558, 0, 0.235483885, 0)
+clicktp.Size = UDim2.new(0, 125, 0, 29)
+clicktp.Font = Enum.Font.SourceSans
+clicktp.Text = "CLICK TP[N]"
+clicktp.TextColor3 = Color3.fromRGB(0, 0, 0)
+clicktp.TextScaled = true
+clicktp.TextSize = 14.000
+clicktp.TextWrapped = true
+clicktp.MouseButton1Click:Connect(function()
+	toggle = true
+    togglekey = "n" --Key that you will use to toggle the on and off
+    killkey   = "k" --Key that you will use to kill a player
+    function Hint(txt)
+        local b = Instance.new('Hint', workspace)
+        b.Text = txt
+        wait(2)
+        b:Destroy()
+    end
+    Local = game:GetService('Players').LocalPlayer
+    Mouse = Local:GetMouse()
+    Mouse.Button1Down:connect(function()
+        pcall(function()
+            if toggle then
+                Local.Character.HumanoidRootPart.CFrame = Local:GetMouse().Hit
+            end
+        end)
+    end)
+    Mouse.KeyDown:connect(function(key)
+        if key == togglekey then
+            if toggle then
+                toggle = false
+                Hint('Turned Off!')
+                print ('Turned Off!')
+            else
+                toggle = true
+                Hint('Turned On!')
+                print ('Turned On!')
+            end
+        elseif key == killkey then
+            if toggle then
+                pcall(function()
+                    Mouse.Target.Parent:FindFirstChild('Humanoid').Health = 0
+                    Hint('Killed ' .. Mouse.Target.Parent.Name)
+                end)
+            end
+        end
+    end)
+end)
+ 
+fling.Name = "fling"
+fling.Parent = Frame
+fling.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+fling.BorderColor3 = Color3.fromRGB(255, 170, 255)
+fling.Position = UDim2.new(0.351620942, 0, 0.235483885, 0)
+fling.Size = UDim2.new(0, 125, 0, 29)
+fling.Font = Enum.Font.SourceSans
+fling.Text = "FLING GUI"
+fling.TextColor3 = Color3.fromRGB(0, 0, 0)
+fling.TextScaled = true
+fling.TextSize = 14.000
+fling.TextWrapped = true
+ 
+noclip.Name = "noclip"
+noclip.Parent = Frame
+noclip.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+noclip.BorderColor3 = Color3.fromRGB(255, 170, 255)
+noclip.Position = UDim2.new(0.69077307, 0, 0.235483885, 0)
+noclip.Size = UDim2.new(0, 125, 0, 29)
+noclip.Font = Enum.Font.SourceSans
+noclip.Text = "NOCLIP"
+noclip.TextColor3 = Color3.fromRGB(0, 0, 0)
+noclip.TextScaled = true
+noclip.TextSize = 14.000
+noclip.TextWrapped = true
+noclip.MouseButton1Click:Connect(function()
+	noclip = false
+game:GetService('RunService').Stepped:connect(function()
+if noclip then
+game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+end
+end)
+plr = game.Players.LocalPlayer
+mouse = plr:GetMouse()
+mouse.KeyDown:connect(function(key)
+ 
+if key == "e" then
+noclip = not noclip
+game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+end
+end)
+print('Loaded')
+print('Press "E" to noclip')
+end)
+ 
+fps.Name = "fps"
+fps.Parent = Frame
+fps.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+fps.BorderColor3 = Color3.fromRGB(255, 170, 255)
+fps.Position = UDim2.new(0.0249376558, 0, 0.367741942, 0)
+fps.Size = UDim2.new(0, 125, 0, 29)
+fps.Font = Enum.Font.SourceSans
+fps.Text = "FPS BOOSTER"
+fps.TextColor3 = Color3.fromRGB(0, 0, 0)
+fps.TextScaled = true
+fps.TextSize = 14.000
+fps.TextWrapped = true
+fps.MouseButton1Click:Connect(function()
+	for _,v in pairs(workspace:GetDescendants()) do
+if v.ClassName == "Part"
+or v.ClassName == "SpawnLocation"
+or v.ClassName == "WedgePart"
+or v.ClassName == "Terrain"
+or v.ClassName == "MeshPart" then
+v.Material = "Plastic"
+end
+end
+ 
+for _,v in pairs(workspace:GetDescendants()) do
+if v.ClassName == "Decal"
+or v.ClassName == "Texture" then
+v:Destroy()
+end
+end
+end)
+ 
+graphics.Name = "graphics"
+graphics.Parent = Frame
+graphics.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+graphics.BorderColor3 = Color3.fromRGB(255, 170, 255)
+graphics.Position = UDim2.new(0.351620942, 0, 0.367741942, 0)
+graphics.Size = UDim2.new(0, 125, 0, 29)
+graphics.Font = Enum.Font.SourceSans
+graphics.Text = "GRAPHICS "
+graphics.TextColor3 = Color3.fromRGB(0, 0, 0)
+graphics.TextScaled = true
+graphics.TextSize = 14.000
+graphics.TextWrapped = true
+graphics.MouseButton1Click:Connect(function()
+	-- Roblox Graphics Enhancher
+local light = game.Lighting
+for i, v in pairs(light:GetChildren()) do
+	v:Destroy()
+end
+ 
+local ter = workspace.Terrain
+local color = Instance.new("ColorCorrectionEffect")
+local bloom = Instance.new("BloomEffect")
+local sun = Instance.new("SunRaysEffect")
+local blur = Instance.new("BlurEffect")
+ 
+color.Parent = light
+bloom.Parent = light
+sun.Parent = light
+blur.Parent = light
+ 
+-- enable or disable shit
+ 
+local config = {
+ 
+	Terrain = true;
+	ColorCorrection = true;
+	Sun = true;
+	Lighting = true;
+	BloomEffect = true;
+ 
+}
+ 
+-- settings {
+ 
+color.Enabled = false
+color.Contrast = 0.15
+color.Brightness = 0.1
+color.Saturation = 0.25
+color.TintColor = Color3.fromRGB(255, 222, 211)
+ 
+bloom.Enabled = false
+bloom.Intensity = 0.1
+ 
+sun.Enabled = false
+sun.Intensity = 0.2
+sun.Spread = 1
+ 
+bloom.Enabled = false
+bloom.Intensity = 0.05
+bloom.Size = 32
+bloom.Threshold = 1
+ 
+blur.Enabled = false
+blur.Size = 6
+ 
+-- settings }
+ 
+ 
+if config.ColorCorrection then
+	color.Enabled = true
+end
+ 
+ 
+if config.Sun then
+	sun.Enabled = true
+end
+ 
+ 
+if config.Terrain then
+	-- settings {
+	ter.WaterColor = Color3.fromRGB(10, 10, 24)
+	ter.WaterWaveSize = 0.1
+	ter.WaterWaveSpeed = 22
+	ter.WaterTransparency = 0.9
+	ter.WaterReflectance = 0.05
+	-- settings }
+end
+ 
+ 
+if config.Lighting then
+	-- settings {
+	light.Ambient = Color3.fromRGB(0, 0, 0)
+	light.Brightness = 4
+	light.ColorShift_Bottom = Color3.fromRGB(0, 0, 0)
+	light.ColorShift_Top = Color3.fromRGB(0, 0, 0)
+	light.ExposureCompensation = 0
+	light.FogColor = Color3.fromRGB(132, 132, 132)
+	light.GlobalShadows = true
+	light.OutdoorAmbient = Color3.fromRGB(112, 117, 128)
+	light.Outlines = false
+	-- settings }
+end
+end)
+ 
+btools.Name = "btools"
+btools.Parent = Frame
+btools.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+btools.BorderColor3 = Color3.fromRGB(255, 170, 255)
+btools.Position = UDim2.new(0.69077307, 0, 0.367741942, 0)
+btools.Size = UDim2.new(0, 125, 0, 29)
+btools.Font = Enum.Font.SourceSans
+btools.Text = "BTOOLS"
+btools.TextColor3 = Color3.fromRGB(0, 0, 0)
+btools.TextScaled = true
+btools.TextSize = 14.000
+btools.TextWrapped = true
+ 
+open.Name = "open"
+open.Parent = ScreenGui
+open.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+open.Position = UDim2.new(0.00788781792, 0, 0.413043469, 0)
+open.Size = UDim2.new(0, 71, 0, 29)
+open.Visible = false
+open.Font = Enum.Font.SourceSans
+open.Text = "OPEN"
+open.TextColor3 = Color3.fromRGB(0, 0, 0)
+open.TextSize = 14.000
+open.MouseButton1Down:connect(function()
+Frame.Visible = true
+open.Visible = false
+end)
